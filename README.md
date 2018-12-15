@@ -22,6 +22,7 @@ We provide the following tags:
 * **clean** A small hexagon application which adheres to the architectural rules.
 * **broken** The same application with a few violations added
 
+> Please note, that we will likely not support the git tags for long as the repository evolves
 
 ## Run the Tests
 
@@ -37,13 +38,13 @@ or your favourite IDE of course.
 We explored different ways to enforce the rules.
 
 ### Access
-The ArchUnit API provides several functions to describe "access".  It seems that one would have to access a method or field of an object.  Simply including a class as a field or so does not cause a violation in this case.
+The ArchUnit API provides several functions to describe "access".  It seems that one would have to access a method or field of an object.  Simply including a class as a field or so does not cause a violation in this case.  For all intents and purposes we're after this approach does not seem feasible.
 
 ### Layered Architecture
 ArchUnit provides a way to specify a layered architecture.  However, it only allows to specify how layers may be used, not what layers may use.  In case of a violation the test will fail, but highlight the layer that was incorrectly accessed, not the layer that caused the violation.
 
 ### Class Dependencies
-There is also a way to specify dependencies and dependents.  This method takes a bit more effort, but provides greater control as it allows to specify how layers may be used, but also which layers they may use.
+There is also a way to specify dependencies and dependents.  This method takes a bit more effort, but provides greater control as it allows to specify how layers may be used, but also which layers they may use.  We prefer this approach for exactly that reason.
 
 ### Framework Dependencies
-We also attempted to prohibit the domain layer from accessing the spring framework.  It seems to not work for using annotations.
+We also attempted to prohibit the domain layer from accessing the spring framework.  Specifying dependencies does not seem to cover annotations.  However, we can specify a `DescribedPredicate<JavaAnnotation>` which does the trick.
