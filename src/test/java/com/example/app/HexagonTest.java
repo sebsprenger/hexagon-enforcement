@@ -33,21 +33,9 @@ class HexagonTest {
     }
 
     @Test
-    @DisplayName("Primary Adapters may depend on application layer and domain layer")
-    void primaryAdaptersDependencies() {
-        classesIn(PRIMARY_ADAPTERS).shouldOnlyDependOn(PRIMARY_ADAPTERS, APPLICATION_LAYER, DOMAIN_LAYER).check(CLASSES);
-    }
-
-    @Test
     @DisplayName("Primary Adapters must not be used by anyone else")
     void primaryAdaptersDependents() {
         classesIn(PRIMARY_ADAPTERS).shouldOnlyBeUsedBy(PRIMARY_ADAPTERS).check(CLASSES);
-    }
-
-    @Test
-    @DisplayName("Secondary Adapters only may use domain layer")
-    void secondaryAdapterDependecies() {
-        classesIn(SECONDARY_ADAPTERS).shouldOnlyDependOn(SECONDARY_ADAPTERS, DOMAIN_LAYER).check(CLASSES);
     }
 
     @Test
